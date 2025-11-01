@@ -1,17 +1,17 @@
 // questions.js
-// Exportiere ein Array numerischer Fragen. Jede Frage hat 5 Hinweise.
+// 3 Platzhalterfragen, je 5 Hinweise, numerische Antworten (für "nächste Antwort gewinnt")
 export const QUESTIONS = [
   {
     id: "q1",
-    type: "number",                 // number | year | bigNumber (rein kosmetisch – Auswertung ist numerisch)
+    type: "number",
     question: "Wie viele Stufen hat der Eiffelturm (offiziell begehbar)?",
-    answer: 1665,                   // numerische richtige Antwort
-    unit: "",                       // optional
+    answer: 1665,
+    unit: "",
     hints: [
-      "Es geht um eine konkrete Anzahl – keine Schätzung mit 'ungefähr'.",
+      "Es ist eine konkrete Anzahl (keine Spanne).",
       "Die Zahl liegt deutlich über 1000.",
-      "Es ist eine ungerade Zahl.",
-      "Sie liegt zwischen 1600 und 1700.",
+      "Eine ungerade Zahl.",
+      "Zwischen 1600 und 1700.",
       "Die letzten beiden Ziffern sind '65'."
     ]
   },
@@ -22,28 +22,35 @@ export const QUESTIONS = [
     answer: 1971,
     unit: "",
     hints: [
-      "Es ist im 20. Jahrhundert passiert.",
+      "20. Jahrhundert.",
       "Vor 1980.",
-      "In den frühen 1970ern.",
-      "Gleichzeitig war ARPANET ein Thema.",
-      "Die Jahreszahl endet auf '71'."
+      "Frühe 1970er.",
+      "ARPANET spielte eine Rolle.",
+      "Endet auf '71'."
     ]
   },
   {
     id: "q3",
     type: "bigNumber",
-    question: "Wie viele Sandkörner befinden sich grob in 1 Kubikmeter trockenem Sand?",
-    answer: 1000000000, // 1 Milliarde – sehr große Zahl
+    question: "Wie viele Sandkörner befinden sich grob in 1 m³ trockenem Sand?",
+    answer: 1000000000, // 1 Milliarde
     unit: "",
     hints: [
-      "Es ist eine sehr große Zahl.",
+      "Sehr große Zahl.",
       "Größenordnung: hunderte Millionen bis wenige Milliarden.",
-      "Die Zahl hat 10 Stellen.",
-      "Es ist näher an 1 Milliarde als an 500 Millionen.",
+      "Zehn Stellen.",
+      "Näher an 1 Mrd. als an 500 Mio.",
       "Runde Zahl mit vielen Nullen."
     ]
   }
 ];
 
-// ⚠️ Du kannst eigene Fragen hinzufügen oder bestehende anpassen.
-//   Achte darauf, dass `answer` numerisch ist. Hints: exakt 5 Strings pro Frage.
+// Weitere Fragen einfach anhängen:
+// {
+//   id: "q4",
+//   type: "number|year|bigNumber",
+//   question: "Deine Frage …",
+//   answer: 123456,
+//   unit: "",
+//   hints: ["H1","H2","H3","H4","H5"]
+// }
