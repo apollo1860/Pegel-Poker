@@ -1,1 +1,213 @@
+/* ===== Design: seriös & farbdivers (Slate/Navy/Teal/Amber/Coral) ===== */
+:root{
+  /* Basis */
+  --bg:#0b0f12;
+  --card:#12171e;
+  --text:#e9eef5;
+  --muted:#9fb0c1;
 
+  /* Akzente (seriös) */
+  --accent:#2aa1ff;    /* blau */
+  --accent-2:#24c7a8;  /* teal */
+  --accent-3:#f3b23c;  /* amber */
+  --accent-4:#e5677a;  /* coral */
+
+  /* Spielerstatus – funktional wie gefordert */
+  --name-gray:#313841;     /* hellgraue Boxen */
+  --name-green:#0c3f2f;    /* dunkelgrün = war dran */
+  --name-black:#0f1419;    /* schwarz = kommt noch */
+  --name-red:#3c1216;      /* rot = ausgestiegen */
+
+  /* Ränder/Flächen */
+  --line:#2a3a49;
+  --line-soft:#22303c;
+  --card-grad-1:#141a22;
+  --card-grad-2:#0f141b;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;
+  background:
+    radial-gradient(1200px 800px at 85% -15%, #13314f55, transparent),
+    radial-gradient(1000px 600px at 10% 110%, #20423135, transparent),
+    var(--bg);
+  color:var(--text);
+}
+
+/* dezent kariertes Grid */
+#bg-grid::before{
+  content:"";
+  position:fixed; inset:0; pointer-events:none; opacity:.12;
+  background-image: linear-gradient(to right, #ffffff0d 1px, transparent 1px),
+                    linear-gradient(to bottom, #ffffff0d 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.screen{display:none; padding:24px; max-width:960px; margin:0 auto}
+.screen.active{display:block}
+.card{
+  background:linear-gradient(180deg, var(--card-grad-1), var(--card-grad-2));
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:20px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.35);
+}
+
+.header h1{margin:8px 0 4px}
+.sub{color:var(--muted); margin:6px 0 0}
+
+.section{margin-top:18px}
+.stack{display:flex; flex-direction:column; gap:8px}
+.row{display:flex; align-items:center}
+.gap{gap:12px}
+.end{justify-content:flex-end}
+.center{justify-content:center}
+.wrap{flex-wrap:wrap}
+
+.badge{
+  display:inline-block;
+  background:#162131;
+  border:1px solid #244057;
+  border-radius:999px;
+  padding:6px 10px;
+  color:#c9d6e3;
+  font-size:14px;
+}
+.topline{display:flex; justify-content:space-between; align-items:center; margin-bottom:12px}
+
+.btn{
+  background:#1a2431;
+  color:var(--text);
+  border:1px solid #2b3a4a;
+  border-radius:10px;
+  padding:10px 14px;
+  cursor:pointer;
+  transition: transform .05s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease, opacity .2s ease;
+  user-select:none;
+}
+.btn:hover{box-shadow:0 6px 18px rgba(0,0,0,.25)}
+.btn:active{transform:translateY(1px)}
+.btn.primary{background:linear-gradient(180deg, #2aa1ff, #1976c6); border-color:#2aa1ff}
+.btn.success{background:linear-gradient(180deg, #24c7a8, #169b83); border-color:#24c7a8}
+.btn.danger{background:linear-gradient(180deg, #e5677a, #c44a5a); border-color:#e5677a}
+.btn.ghost{background:transparent; border-color:#304457}
+.btn.round{border-radius:999px; width:44px; height:44px; font-size:20px; display:flex; align-items:center; justify-content:center}
+
+input, .answer-input{
+  width:100%;
+  font-size:18px;
+  padding:12px 14px;
+  border-radius:10px;
+  background:#0f141a;
+  color:var(--text);
+  border:1px solid #2a3a4d;
+}
+
+.player-line{display:flex; gap:8px}
+.player-line input{flex:1}
+
+.note{
+  margin:16px 0;
+  padding:12px 14px;
+  border-radius:12px;
+  background:linear-gradient(180deg, #151c24, #0e141b);
+  border:1px solid var(--line);
+}
+
+/* Hinweisbox */
+.hint-box{
+  margin:12px 0 18px;
+  padding:14px;
+  background:linear-gradient(180deg, #0f151c, #0b1117);
+  border:1px solid #274056;
+  border-radius:12px;
+}
+.hint-box .hint-label{
+  font-size:12px; color:#8fb2cf; text-transform:uppercase; letter-spacing:.1em; margin-bottom:6px;
+}
+#hint-text{font-size:18px}
+
+/* Spielerpanel */
+.players-panel{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap:8px;
+  margin:12px 0 16px;
+}
+.player-pill{
+  display:flex; justify-content:space-between; align-items:center;
+  background:var(--name-gray);
+  border:1px solid #39424c;
+  border-radius:10px; padding:10px 12px;
+  transition: background .2s ease, transform .2s ease, opacity .2s ease;
+}
+.player-pill .name{font-weight:600}
+.player-pill .bet{opacity:.9}
+
+.player-pill.done{background:var(--name-green)}
+.player-pill.pending{background:var(--name-black)}
+.player-pill.folded{background:var(--name-red); opacity:.75}
+
+/* Einsatzsteuerung */
+.bet-controls{
+  display:flex; flex-direction:column; gap:10px; align-items:center;
+  padding:12px; border:1px dashed #2c3d50; border-radius:12px; background:#0e141b;
+}
+.who-turn{color:#c9d6e3}
+
+.bet-row{display:flex; align-items:center; gap:14px}
+.bet-amount{
+  font-size:46px; font-weight:800; letter-spacing:.02em;
+  min-width:72px; text-align:center;
+  padding:8px 12px; border-radius:12px; background:#0a1117; border:1px solid #203243;
+}
+
+.correct-answer{
+  font-size:20px; color:#cfe7ff; background:#0e1620; border:1px solid #284054; border-radius:12px; padding:12px; margin-bottom:12px;
+}
+
+.answers-list .answer-line{
+  display:flex; justify-content:space-between; gap:10px; padding:10px 12px; margin:6px 0;
+  border:1px solid #263241; border-radius:10px; background:#0e141b;
+}
+.answers-list .answer-line.folded{opacity:.6; text-decoration:line-through}
+
+.result-box{
+  margin-top:14px; padding:12px; border-radius:12px;
+  background:linear-gradient(180deg, #0d1823, #0a141d);
+  border:1px solid #284054;
+}
+
+/* Kleine Hilfen */
+.handoff-name{font-size:24px; font-weight:800; margin:6px 0 10px}
+.hint{color:#93a6bb; font-size:13px}
+
+/* Animationen */
+.fade-in{animation:fade .35s ease both}
+@keyframes fade{from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none}}
+
+.bounce-in{animation:bounce .45s ease both}
+@keyframes bounce{
+  0%{opacity:0; transform:scale(.96)}
+  60%{opacity:1; transform:scale(1.02)}
+  100%{transform:scale(1)}
+}
+.slide-in-up{animation:slideUp .35s ease both}
+@keyframes slideUp{
+  from{opacity:0; transform:translateY(10px)}
+  to{opacity:1; transform:none}
+}
+
+/* Konfetti */
+#confetti-container{position:fixed; inset:0; pointer-events:none; overflow:hidden;}
+.confetti{
+  position:absolute; width:8px; height:8px;
+  background: hsl(var(--h), 90%, 60%);
+  top:-10px; animation: fall 1.6s linear forwards; transform: rotate(0deg);
+}
+@keyframes fall{
+  to{transform: translateY(110vh) rotate(360deg); opacity: 0.9;}
+}
