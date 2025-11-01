@@ -7,87 +7,121 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Hintergrund Partikel / Glimmer -->
-  <div id="bg-sparks"></div>
+  <!-- Dekorativer Hintergrund -->
+  <div id="bg-grid"></div>
 
-  <!-- Start: Menü -->
+  <!-- START: Spielermenü -->
   <section id="start-screen" class="screen active fade-in">
-    <div class="card pop-in">
-      <h1>🍻 Das Duell um den Pegel</h1>
-      <p class="sub">Trinkspiel – inspiriert von „Das Duell um die Geld“</p>
+    <div class="card">
+      <header class="header">
+        <h1>🍻 Das Duell um den Pegel</h1>
+        <p class="sub">Trinkspiel – inspiriert von „Das Duell um die Geld“</p>
+      </header>
 
-      <div id="players-setup">
-        <label>Spieler hinzufügen:</label>
-        <div id="player-inputs"></div>
+      <div class="section">
+        <h3>Spieler</h3>
+        <div id="player-inputs" class="stack"></div>
         <div class="row gap">
           <button id="add-player" class="btn">+ Spieler</button>
           <button id="remove-player" class="btn ghost">– Entfernen</button>
         </div>
       </div>
 
-      <div class="hr"></div>
-
-      <div class="row gap">
-        <button id="start-game" class="btn primary pulse">Spiel starten</button>
+      <div class="note">
+        Es werden automatisch <strong>Spieleranzahl × 4</strong> Runden gespielt.
       </div>
-      <p class="hint">Es werden automatisch <strong>Spieleranzahl × 4</strong> Runden gespielt.</p>
+
+      <div class="row gap end">
+        <button id="start-game" class="btn primary">Spiel starten</button>
+      </div>
     </div>
   </section>
 
-  <!-- Frage anzeigen (wird vorgelesen) -->
+  <!-- SLIDE 1: Frage (laut vorlesen) -->
   <section id="question-screen" class="screen">
-    <div class="card slide-in-up">
-      <div class="round-head">
-        <div class="badge" id="round-info"></div>
-        <div class="badge" id="question-index-info"></div>
+    <div class="card">
+      <div class="topline">
+        <span class="badge" id="round-info"></span>
+        <span class="badge" id="question-index-info"></span>
       </div>
+
       <h2 id="question-text"></h2>
-      <p class="sub" id="question-note">Lies die Frage laut vor. Dann gib das Handy reihum weiter.</p>
-      <div class="row gap">
-        <button id="begin-answers" class="btn primary">Antworten sammeln</button>
+      <p class="sub">Bitte die Frage <strong>laut vorlesen</strong>.</p>
+
+      <div class="row gap end">
+        <button id="to-handoff" class="btn primary">Antwortphase starten ▶</button>
       </div>
     </div>
   </section>
 
-  <!-- Übergabe-Slide: "Gib das Handy an XY weiter" -->
+  <!-- SLIDE 2: Gerät weitergeben -->
   <section id="handoff-screen" class="screen">
-    <div class="card bounce-in">
-      <h2 id="handoff-title">Gib das Handy an …</h2>
+    <div class="card">
+      <h2>Gib das Handy an …</h2>
       <p class="handoff-name" id="handoff-name">Name</p>
-      <button id="handoff-confirm" class="btn success">Weiter ▶</button>
+      <div class="row gap end">
+        <button id="handoff-confirm" class="btn success">Weiter ▶</button>
+      </div>
     </div>
   </section>
 
-  <!-- Geheime Antwort-Eingabe -->
+  <!-- SLIDE 3: Geheim antworten -->
   <section id="answer-screen" class="screen">
-    <div class="card pop-in">
-      <div class="badge" id="answering-player"></div>
+    <div class="card">
+      <div class="topline">
+        <span class="badge" id="answering-player"></span>
+      </div>
       <h3 id="answer-question"></h3>
       <input id="answer-input" class="answer-input" inputmode="numeric" placeholder="Deine Antwort (Zahl)" />
-      <div class="row gap">
+      <p class="hint">Deine Antwort bleibt geheim bis zur Auflösung.</p>
+      <div class="row gap end">
         <button id="answer-submit" class="btn primary">Antwort speichern</button>
       </div>
-      <p class="hint">Deine Antwort bleibt geheim bis zur Auflösung.</p>
     </div>
   </section>
 
-  <!-- Einsatzrunde (Hinweise & Setzen) -->
+  <!-- SLIDE 4: Alle Antworten gesammelt -->
+  <section id="all-answered-screen" class="screen">
+    <div class="card">
+      <h2>Alle Antworten sind eingegangen</h2>
+      <p class="sub">Regel: Jede Person startet automatisch mit <strong>1 Schluck Einsatz</strong>.</p>
+      <div class="row gap end">
+        <button id="to-hint-intro" class="btn primary">Weiter zu Hinweis 1 ▶</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 5: Hinweis-Intro (vor jeder Hinweisrunde) -->
+  <section id="hint-intro-screen" class="screen">
+    <div class="card">
+      <div class="topline">
+        <span class="badge" id="hint-round-info"></span>
+      </div>
+      <h2 id="hint-intro-title">Hinweis <span id="hint-number">1</span> von 5</h2>
+      <p class="sub">Lies den Hinweis gleich laut vor. Danach kann reihum erhöht, mitgegangen oder ausgestiegen werden.</p>
+      <div class="row gap end">
+        <button id="show-betting" class="btn primary">Hinweis anzeigen ▶</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 6: Einsatzrunde (Hinweis sichtbar) -->
   <section id="betting-screen" class="screen">
-    <div class="card slide-in-up">
-      <div class="round-head">
-        <div class="badge" id="bet-round-info"></div>
-        <div class="badge" id="hint-count"></div>
+    <div class="card">
+      <div class="topline">
+        <span class="badge" id="bet-round-info"></span>
+        <span class="badge" id="hint-count"></span>
       </div>
 
-      <div id="hint-box" class="hint-box glow">
+      <div id="hint-box" class="hint-box">
         <div class="hint-label">Hinweis</div>
         <div id="hint-text">—</div>
       </div>
 
-      <!-- Spieler-Status / Einsätze -->
+      <!-- Spielerstatus -->
       <div id="players-panel" class="players-panel"></div>
 
-      <!-- Aktiver Spieler: Einsatz steuern -->
+      <!-- Aktiver Spieler: Einsatz -->
       <div id="bet-controls" class="bet-controls">
         <div class="who-turn" id="turn-indicator">Am Zug: —</div>
 
@@ -97,7 +131,7 @@
           <button id="plus" class="btn round">+</button>
         </div>
 
-        <div class="row gap wrap">
+        <div class="row gap wrap center">
           <button id="bet-call" class="btn">Mitgehen</button>
           <button id="bet-confirm" class="btn primary">Einsatz bestätigen</button>
           <button id="bet-fold" class="btn danger">Aussteigen</button>
@@ -105,15 +139,26 @@
       </div>
 
       <div class="row gap center">
-        <button id="next-hint" class="btn ghost">Nächster Hinweis</button>
-        <button id="reveal-answers" class="btn success glow" disabled>Antworten aufdecken</button>
+        <button id="to-next-hint-intro" class="btn ghost">Nächster Hinweis</button>
+        <button id="to-reveal-intro" class="btn success" disabled>Zur Aufdeckung ▶</button>
       </div>
     </div>
   </section>
 
-  <!-- Auflösung -->
+  <!-- SLIDE 7: Aufdeck-Intro -->
+  <section id="reveal-intro-screen" class="screen">
+    <div class="card">
+      <h2>Aufdecken</h2>
+      <p class="sub">Alle Hinweise wurden gezeigt. Jetzt werden die Antworten aufgedeckt.</p>
+      <div class="row gap end">
+        <button id="go-reveal" class="btn primary">Antworten aufdecken ▶</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 8: Auflösung -->
   <section id="reveal-screen" class="screen">
-    <div class="card pop-in">
+    <div class="card">
       <h2>Auflösung</h2>
       <div id="correct-answer" class="correct-answer"></div>
 
@@ -121,13 +166,13 @@
 
       <div id="result-box" class="result-box"></div>
 
-      <div class="row gap">
+      <div class="row gap end">
         <button id="next-round" class="btn primary">Nächste Runde ▶</button>
       </div>
     </div>
   </section>
 
-  <!-- Mini-Confetti -->
+  <!-- Konfetti -->
   <div id="confetti-container" aria-hidden="true"></div>
 
   <script type="module" src="app.js"></script>
